@@ -1,0 +1,9 @@
+{%  block content %}
+<h1> <a href="{% url 'landing-page' %}">Header </a> </h1>
+{% if request.user.is_authenticated %}
+<h1>Welcome {{request.user}}</h1>
+<a href="{% url 'logout-user' %}">Logout</a>
+{% else %}
+<a href="{% url 'login-page' %}">Login</a> or <a href="{% url 'register-user' %}">Register Now</a>
+{% endif %}
+{% endblock %}

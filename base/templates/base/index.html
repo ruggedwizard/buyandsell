@@ -1,1 +1,12 @@
-<h1>Products Page</h1>
+{% extends 'base/main.html' %}
+{% block content %}
+{% if user.is_authenticated %}
+<h1> Want to Sell?, <a href="{% url 'add-item' %}">sell an Item</a></h1>
+{% endif %}
+
+{% for product in products  %}
+<h1>{{product.name}}</h1>
+<h5>{{product.amount}}</h5>
+<button><a href="product/{{product.id}}">view more</a></button>
+{% endfor %}
+{% endblock %}

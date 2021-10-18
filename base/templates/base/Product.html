@@ -1,0 +1,21 @@
+{% extends 'base/main.html' %}
+{% block content %}
+<h1>Single Product</h1>
+<h1>{{single_product.name}}</h1>
+<h3>{{single_product.amount}}</h3>
+<h4>Description:</h4>
+<h4>{{single_product.description}}</h4>
+<h4>Posted by:{{single_product.posted_by}}</h4>
+<b>Category: {{single_product.category}}</b>
+<hr>
+
+<h1>Related Items</h1>
+{% for item in category %}
+
+<h1>{{item.name}}</h1>
+<h3>{{item.amount}}</h3>
+<a href="{% url 'single-item' item.id %}">View</a>
+<hr>
+
+{% endfor %}
+{% endblock %}
