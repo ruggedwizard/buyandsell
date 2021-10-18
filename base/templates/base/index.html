@@ -1,12 +1,58 @@
 {% extends 'base/main.html' %}
+{% load static %}
 {% block content %}
-{% if user.is_authenticated %}
-<h1> Want to Sell?, <a href="{% url 'add-item' %}">sell an Item</a></h1>
-{% endif %}
 
-{% for product in products  %}
-<h1>{{product.name}}</h1>
-<h5>{{product.amount}}</h5>
-<button><a href="product/{{product.id}}">view more</a></button>
-{% endfor %}
+<div id="page">
+	<div class="container">
+	
+		<!-- #masthead -->
+		<div id="content" class="site-content">
+			<div id="primary" class="content-area column full">
+				<main id="main" class="site-main" role="main">
+				<p class="woocommerce-result-count">
+					 Showing 1–8 of 12 results
+				</p>
+				<form class="woocommerce-ordering" method="get">
+					<select name="orderby" class="orderby">
+						<option value="menu_order" selected="selected">Default sorting</option>
+						<option value="popularity">Sort by popularity</option>
+						<option value="rating">Sort by average rating</option>
+						<option value="date">Sort by newness</option>
+						<option value="price">Sort by price: low to high</option>
+						<option value="price-desc">Sort by price: high to low</option>
+					</select>
+				</form>
+				<ul class="products">
+					{% for product in products %}
+					<li class="product">
+					<a href="{% url 'single-item' product.id %}">
+					<img src="http://s3.amazonaws.com/caymandemo/wp-content/uploads/sites/10/2015/09/10175658/j10-520x780-520x600.jpg" alt="">
+					<h3>{{product.name}}</h3>
+					<span class="price"><span class="amount">&#8358;{{product.amount}}.00</span></span>
+					</a><a href="{% url 'single-item' product.id %}" class="button">View More</a>
+					</li>
+					{% endfor %}
+					
+					
+					
+				</ul>
+				<nav class="woocommerce-pagination">
+				<ul class="page-numbers">
+					<li><span class="page-numbers current">1</span></li>
+					<li><a class="page-numbers" href="#">2</a></li>
+					<li><a class="next page-numbers" href="#">→</a></li>
+				</ul>
+				</nav>
+				</main>
+				<!-- #main -->
+			</div>
+			<!-- #primary -->
+		</div>
+		<!-- #content -->
+	</div>
+	<!-- .container -->
+
+</div>
 {% endblock %}
+
+

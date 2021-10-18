@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def Index(request):
+            
     products = Product.objects.all()
     context = {'products':products}
     return render(request,'base/index.html', context)
