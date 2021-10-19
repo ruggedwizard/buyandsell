@@ -1,21 +1,70 @@
 {% extends 'base/main.html' %}
 {% block content %}
-<h1>Single Product</h1>
-<h1>{{single_product.name}}</h1>
-<h3>{{single_product.amount}}</h3>
-<h4>Description:</h4>
-<h4>{{single_product.description}}</h4>
-<h4>Posted by:{{single_product.posted_by}}</h4>
-<b>Category: {{single_product.category}}</b>
 <hr>
+<div class="container">
 
-<h1>Related Items</h1>
-{% for item in category %}
+<div itemscope itemtype="http://schema.org/Product" class="product">
+    <div class="images">
+        <a href="" itemprop="image" class="woocommerce-main-image zoom" title="" data-rel="prettyPhoto">								
+        <img src="http://s3.amazonaws.com/caymandemo/wp-content/uploads/sites/10/2015/09/10175658/j10-520x780-520x600.jpg" alt=""></img></a>
+    </div>
+    <div class="summary entry-summary">
+        <h1 itemprop="name" class="product_title entry-title">{{single_product.name}}</h1>
+        <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+            <p class="price">
+                <h3 class="amount">${{single_product.amount}}</h3>
+            </p>
+            <meta itemprop="price" content="35"/>
+            <meta itemprop="priceCurrency" content="USD"/>
+            <link itemprop="availability" href="http://schema.org/InStock"/>
+        </div>
+        <div itemprop="description">
+            <h3>Product Description</h3>
+            {% if single_product.description %}
+            <p>{{single_product.description}}</p>
+            {% else %}
+            <h4>No description given</h4>
+            {% endif %}
+        </div>
+        
+        <div class="product_meta">
+            <span class="posted_in">Category: 
+            <a href="#" rel="tag">{{single_product.category}}</a>, 
+            </span>
+        </div>
+    </div>
+    <!-- .summary -->
+    <div class="woocommerce-tabs wc-tabs-wrapper ">
+            <div class="panel entry-content wc-tab" id="tab-description">
+            <h2>Product Description</h2>
+            {% if single_product.description %}
+            <p>{{single_product.description}}</p>
+            {% else %}
+                <p>An Amazing Product</p>
+            {% endif %}
+            </div>
+    </div>
+    
+    <h2>Related Products</h2>
+    {% for item in category %}
+    <div class="related products ">
+        
+        <ul class="products">
+            <li class="last  first product">
+            <a href="{% url 'single-item' item.id %}">
+            <span class="onsale">Sale!</span>									
+            <img src="http://s3.amazonaws.com/caymandemo/wp-content/uploads/sites/10/2015/09/10175658/j4-520x520.jpg" alt=""></img>
+            <h3>{{item.name}}</h3>
+            <span class="price"><del><span class="amount">${{item.amount}}</span></del><ins><span class="amount">&#36;{{item.amount}}</span></ins></span>
+            </a>
+            <a href="{% url 'single-item' item.id %}" class="button">View More</a>
+            </li>
+            
+         </ul>
+         <hr>
+        {% endfor %}
+    </div>
+</div>
+</div>
 
-<h1>{{item.name}}</h1>
-<h3>{{item.amount}}</h3>
-<a href="{% url 'single-item' item.id %}">View</a>
-<hr>
-
-{% endfor %}
 {% endblock %}
