@@ -1,6 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.http.response import HttpResponse
-# from django.contrib import messages
+from django.contrib import messages
 from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login, logout
 from . models import Product
@@ -9,8 +9,8 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def Index(request):
-            
-    products = Product.objects.all()
+    q = request.GET.get('q') if request.GET.get('q') != None else ''
+    products = Product.objects.filter(name__icontains=q)
     context = {'products':products}
     return render(request,'base/index.html', context)
 
@@ -31,7 +31,9 @@ def Addproduct(request):
     if request.method == 'POST':
         form = ProductForm(data=request.POST)
         if form.is_valid:
-            form.save()
+            product =form.save(commit=False)
+            product.posted_by = request.user
+            product.save()
             return redirect(Index)
     context = {'form':form, }
     return render(request,'base/add.html',context)
@@ -41,11 +43,11 @@ def Login(request):
         username = request.POST['username'].lower()
         password = request.POST['password']
         user = authenticate(request, username= username, password = password)
-        if user is not None:
+        try:
             login(request, user)
             return redirect('landing-page')
-        else:
-            HttpResponse("User Does not Exist")
+        except:
+            messages.error(request, "Email or Password is incorrect")
     return render(request,'base/login.html')
 
 def Logout(request):

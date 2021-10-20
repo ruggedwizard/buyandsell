@@ -4,7 +4,7 @@
 
 <header id="masthead" class="site-header">
     <div class="site-branding">
-        <h1 class="site-title"><a href="index.html" rel="home">Moschino</a></h1>
+        <h1 class="site-title"><a href="{% url 'landing-page' %}" rel="home">Moschino</a></h1>
         <h2 class="site-description">Minimalist Portfolio HTML Template</h2>
     </div>
     <nav id="site-navigation" class="main-navigation">
@@ -12,12 +12,20 @@
     <a class="skip-link screen-reader-text" href="#content">Skip to content</a>
     <div class="menu-menu-1-container">
         <ul id="menu-menu-1" class="menu">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="#">Pages</a></li>
-            <li><a href="contact.html">Contact</a></li>
+            <li><a href="{% url 'landing-page' %}">Home</a></li>
+            {% if request.user.is_authenticated %}
+            <li><a href="{% url 'add-item' %}">Sell a product</a></li>
+            <li><a href="{% url 'logout-user' %}">Logout {{request.user}}</a></li>
+            {% else %}
+            <li><a href="{% url 'login-page' %}">Login</a></li> 
+            {% endif %}
         </ul>
     </div>
     </nav>
+    <form action="{% url 'landing-page' %}" method="get">
+        <input type="text" name="q" placeholder="Search Here.......">
+        <button type="submit">Search</button>
+    </form>
     </header>
 </div>
 

@@ -9,4 +9,5 @@ class ProductForm(ModelForm):
     class Meta:
         model = Product
         fields = '__all__'
+        exclude = ['posted_by']
 
