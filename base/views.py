@@ -3,7 +3,7 @@ from django.http.response import HttpResponse
 from django.contrib import messages
 from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login, logout
-from . models import Product
+from . models import Product, Profile
 from . forms import ReviewForm, ProductForm
 from django.contrib.auth.decorators import login_required
 
@@ -68,3 +68,8 @@ def Register(request):
            HttpResponse("An Error has Occured!!")
     context = {'form':form}
     return render(request, 'base/register.html', context)
+
+def Profilepage(request, pk):
+    profile = Profile.objects.get(id = pk)
+    context = {'profile':profile}
+    return render(request, 'base/profile_page.html', context)

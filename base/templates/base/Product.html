@@ -17,6 +17,7 @@
             <meta itemprop="price" content="35"/>
             <meta itemprop="priceCurrency" content="USD"/>
             <link itemprop="availability" href="http://schema.org/InStock"/>
+            <a href="{% url 'profile-page' single_product.posted_by.id %}"> <p>Posted By:{{single_product.posted_by}}</p>  </a>
         </div>
         <div itemprop="description">
             <h3>Product Description</h3>
@@ -29,7 +30,7 @@
         
         <div class="product_meta">
             <span class="posted_in">Category: 
-            <a href="#" rel="tag">{{single_product.category}}</a>, 
+            <a href="#" rel="tag">{{single_product.category}}</a>
             </span>
         </div>
     </div>
