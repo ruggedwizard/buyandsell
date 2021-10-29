@@ -15,9 +15,11 @@
             <li><a href="{% url 'landing-page' %}">Home</a></li>
             {% if request.user.is_authenticated %}
             <li><a href="{% url 'add-item' %}">Sell a product</a></li>
+            <li><a href="{% url 'profile-page' request.user.id %}">View Profile </a></li>
             <li><a href="{% url 'logout-user' %}">Logout {{request.user}}</a></li>
             {% else %}
             <li><a href="{% url 'login-page' %}">Login</a></li> 
+            <li><a href="{% url 'register-user'  %}">Register</a></li>
             {% endif %}
         </ul>
     </div>

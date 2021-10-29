@@ -12,8 +12,14 @@
 </div>
 <div class="profile-product">
     <h3>other items from the same user</h3>
-    {% for items in profile.product%}
-    <h1>Products</h1>
+    {% for items in profile.details.username %}
+
+    <div class="related-items">
+        <h3>Product Name:</h3>
+        <h3>Product Price:</h3>
+        <h3>View Product</h3>
+    </div>
+
     {% endfor %}
 </div>
 {% endblock %}
